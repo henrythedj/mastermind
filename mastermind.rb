@@ -1,7 +1,7 @@
 class Mastermind
 
 	def initialize
-		@won, @answer, @turns, @player_or_robo, @robo_wins, @robo_loss, @number_of_wins = 0, [], 12, 0, 0, 0,0
+		@won, @answer, @turns, @player_loss, @player_or_robo, @robo_wins, @robo_loss, @number_of_wins = 0, [], 12, 0, 0, 0, 0,0
 		@robo_feedback = [0,0]
 		@robo_possibilities = [1,2,3,4,5,6].repeated_permutation(4).to_a
 		@colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo']
@@ -80,7 +80,7 @@ class Mastermind
 		end
 		@turns -= 1
 		correct_position == 4 ? (@won = 1; @number_of_wins+=1; self.check_win; return @won) : (puts "# of correct colors in wrong position: #{correct_color}\n# of colors in correct position: #{correct_position}"; self.reset_colorcount)
-		@turns == 0? (@won = 2; self.check_win) : (puts "\nTurns left: #{@turns}"; self.take_turn)
+		@turns == 0? (@won = 2; @player_loss+=1; self.check_win) : (puts "\nTurns left: #{@turns}"; self.take_turn)
 	end
 
 	def robo_check_guess(guess_in)
@@ -195,7 +195,7 @@ class Mastermind
 			end
 			print " \n\n"
 		end
-		puts "Your Wins: #{@number_of_wins} \nMr Roboto's Wins: #{@robo_wins} \nYour Small Victories against Skynet: #{@robo_loss}\n\n"
+		puts "Your Wins: #{@number_of_wins} \nYour Losses: #{@player_loss}\nMr Roboto's Wins: #{@robo_wins} \nYour Small Victories against Skynet: #{@robo_loss}\n\n"
 		self.play_again
 	end
 
