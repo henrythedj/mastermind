@@ -214,4 +214,4 @@ class Mastermind
 end
 
 		
-test123 = Mastermind.new
+newgame = Mastermind.new
